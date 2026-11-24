@@ -50,6 +50,7 @@ gh (Engelstraenen), sjinn in Chrome eingeloggt (Unlimited).
 
 - 24.11.2026 (abends): NEUAUFBAU „Schachtkamera-Fahrt“ (Masterfile V2.53): ganze Seite = Kamerafahrt durch den Schornstein, WebGL-Schacht (three.js) zwischen fotorealistischen Stationen, HUD (Tiefe/Messwerte/REC/Protokoll) = Navigation. Stationen 0 Dach · Einfahrt (KWV-2 rückwärts) · 01 Reinigung · 02 Inspektion · 03 Messung · 04 CO · 05 Energie (Wärmebild-Wischer) · 06 Team (Funkspruch-Bewerbung) · 07 Protokoll + Bewertungs-Beispiele als Prüfmarken · 08 Ofen + Termin (KWV-1). Storyboard konzepte/7-schachtkamera.png freigegeben.
 - 24.11.2026: Lichtrichtung immer ausdrücklich in den Prompt (Eugen: LED der Schachtkamera muss NACH UNTEN in den Schacht leuchten, nicht hoch zur Kamera) → KS-1B neu.
+- 24.11.2026 (Masterfile V2.59): Fotos/Videos nur kostenlos (Unlimited, 0 Credits), kein MiniMax-2K-Endrender. Erst nach Eugens Gesamtfreigabe: freigegebene 720P-Videos hochskalieren/prüfen, sonst nur diese neu in 2K/4K auf Dreamina Seedance 2.5 – alles mit Credits nur nach OK mit live gelesenem Preis.
 - Offen: Firmenname ohne „-WERK“ (Masterfile V2.53), Vorschläge bei Lieferung.
 
 ## 10. Ablage
