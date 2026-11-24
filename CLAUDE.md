@@ -32,7 +32,11 @@ gh (Engelstraenen), sjinn in Chrome eingeloggt (Unlimited).
 3 Storyboards (Eugen wählt/mischt) → First Frames 4K → Video-Drafts gratis → Seite bauen → Storyboard-Abgleich → GitHub Pages.
 
 ## 7. Befehle
-(folgt mit dem ersten Code)
+- Vorschau: `cd site && python3 -m http.server 4472` (Port 4472 = KEHRWERK, vorher `<title>` prüfen)
+- Assets: `zsh tools/assets.sh` (frames/KS-*.png -> WebP 2560/1600, Filme -> Scrub-MP4, Manifest)
+- Prüfen: `python3 tools/shots.py http://localhost:4472/ <ordner>` (5 Viewports + Kopfzeile)
+- Bilder: Dreamina-Tab, `tools/ks_queue.js` per Datei-Eingang einspielen, `KSQ.run()`; Download: `KSQ.armCopy()` + Klick oben, dann `tools/ks_fetch.sh`
+- Deploy: `zsh tools/deploy.sh "Text"` (gh-pages, legacy)
 
 ## 8. Offene Fragen
 - Wahl Storyboard 1 „Durch den Schacht“, 2 „Über den Dächern“, 3 „Messwert“ (konzepte/).
@@ -44,6 +48,10 @@ gh (Engelstraenen), sjinn in Chrome eingeloggt (Unlimited).
 - 24.11.2026: Eugen wählt Storyboard 1 „Rauchzeichen“ (Fallback 3 Rooftop Crew). Farbwelt Ruß #0f0e0d + Signalrot #ff3b30 (Schwarz+Glut-Orange gesperrt, FEUERRAUM). Prompts: konzepte/prompts-frames.md.
 - 24.11.2026: Startbilder 2K auf Dreamina (GPT Image 2.5 Sunburst, Unlimited), Videos Dreamina Seedance 2.5 720P Unlimited (First and last frames, nur Startbild). Dreamina: 1 Gratis-Auftrag gleichzeitig kontoweit je Art (Bild/Video), Wächter `KWD` (Bild-Tab) und `KWVW.fire(tag)` (Video-Tab). Chrome blockt nach einigen Downloads weitere → Original-Link per Klick-Handler in die Zwischenablage, dann `curl "$(pbpaste)"` (scratchpad clipdl.sh).
 
+- 24.11.2026 (abends): NEUAUFBAU „Schachtkamera-Fahrt“ (Masterfile V2.53): ganze Seite = Kamerafahrt durch den Schornstein, WebGL-Schacht (three.js) zwischen fotorealistischen Stationen, HUD (Tiefe/Messwerte/REC/Protokoll) = Navigation. Stationen 0 Dach · Einfahrt (KWV-2 rückwärts) · 01 Reinigung · 02 Inspektion · 03 Messung · 04 CO · 05 Energie (Wärmebild-Wischer) · 06 Team (Funkspruch-Bewerbung) · 07 Protokoll + Bewertungs-Beispiele als Prüfmarken · 08 Ofen + Termin (KWV-1). Storyboard konzepte/7-schachtkamera.png freigegeben.
+- 24.11.2026: Lichtrichtung immer ausdrücklich in den Prompt (Eugen: LED der Schachtkamera muss NACH UNTEN in den Schacht leuchten, nicht hoch zur Kamera) → KS-1B neu.
+- Offen: Firmenname ohne „-WERK“ (Masterfile V2.53), Vorschläge bei Lieferung.
+
 ## 10. Ablage
-frames/ (Startbilder 2560×1440), videos/ (Drafts), vorschau/ (für den Chat)
+frames/ (Startbilder 2560×1440, KS-* = Schachtkamera-Motive), videos/ (Drafts), vorschau/ (für den Chat)
 Code: Dropbox/CLAUDE/Projekte/KEHRWERK · Storyboards: konzepte/
