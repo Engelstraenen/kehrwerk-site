@@ -2,7 +2,7 @@
 # Schachtkamera-Seite: Motive KS-*.png -> WebP 2560 + 1600 (-m); Filme -> Scrub-MP4 (dichte Keyframes). Nur Neues rechnen.
 cd "${0:A:h}/.."
 mkdir -p site/assets/img site/assets/vid
-for f in frames/H-*.png(N); do b=$(basename $f .png | cut -d_ -f1 | tr A-Z a-z)
+for f in frames/H-(1|1T|<2-9>).png(N); do b=$(basename $f .png | cut -d_ -f1 | tr A-Z a-z)
   [ site/assets/img/$b.webp -nt $f ] || { python3 tools/webp.py $f site/assets/img/$b; echo img $b; }
 done
 enc(){ ffmpeg -v error -y -i $1 ${=3} -an -c:v libx264 -pix_fmt yuv420p -preset slow -crf 22 -g 4 -keyint_min 4 -sc_threshold 0 -r 30 -movflags +faststart $2; }

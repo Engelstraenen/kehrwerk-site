@@ -53,6 +53,7 @@ gh (Engelstraenen), sjinn in Chrome eingeloggt (Unlimited).
 - 24.11.2026 (Masterfile V2.59): Fotos/Videos nur kostenlos (Unlimited, 0 Credits), kein MiniMax-2K-Endrender. Erst nach Eugens Gesamtfreigabe: freigegebene 720P-Videos hochskalieren/prüfen, sonst nur diese neu in 2K/4K auf Dreamina Seedance 2.5 – alles mit Credits nur nach OK mit live gelesenem Preis.
 - 24.11.2026 (22:20): Eugen wählt aus 3 Storyboards Nr. 3 „Haus im Schnitt“ (konzepte/SB-3.png): ganze Seite = fotorealistischer Hausschnitt bei Nacht, Leuchtpunkt (Schachtkamera) fährt den Schornstein hinab, an jeder Station Eintauchen in ein Vollbild-Foto, Navigation = Mini-Schnitt des Hauses. Farbwelt Graphit #141516 + Neongelb #e6ff3a. WebGL-Schacht und Einfahrt-Film entfallen, Ofen-Film (KWV-1) bleibt als Schluss. Hausschnitt als Schlüsselbild in 3 Versionen (H-1A/B/C).
 - 24.11.2026: Eugen: erst „Haus im Schnitt“ bauen; sieht es nicht gut aus → zurück zur Schachtkamera-Fahrt. Diese liegt fertig als Ausweich in `site-schacht/` (Code-Stand Commit 3a5a839 + Fixes; Assets aus site/assets, Videos per tools/assets.sh).
+- 24.11.2026: Dreamina-Bildkarten aktualisieren den Status nicht immer live (KS-1B stand 20 min auf 99 %, nach Neuladen fertig) → bei Stillstand >5 min Seite neu laden, Skript neu einspielen (`KSQ.run(0)`, erkennt Fertiges selbst).
 - Offen: Firmenname ohne „-WERK“ (Masterfile V2.53), Vorschläge bei Lieferung.
 
 ## 10. Ablage

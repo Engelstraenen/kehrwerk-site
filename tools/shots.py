@@ -30,7 +30,7 @@ async def main():
         for w in (1081,1180,1181,1280,1440,1600):
             ctx = await b.new_context(viewport={"width":w,"height":800}); pg = await ctx.new_page()
             await pg.goto(URL, wait_until="domcontentloaded"); await pg.wait_for_timeout(500)
-            r = await pg.evaluate("Math.max(...[...document.querySelectorAll('.hud-logo,.hud-cta,.hud-rec,.hud-st')].filter(e=>getComputedStyle(e).display!=='none').map(e=>e.getBoundingClientRect().right))")
+            r = await pg.evaluate("Math.max(...[...document.querySelectorAll('.logo,.hd-cta,.burger,.mini')].filter(e=>getComputedStyle(e).display!=='none').map(e=>e.getBoundingClientRect().right))")
             hdr[w] = round(r)
             await ctx.close()
         rep["header_right"] = hdr

@@ -17,8 +17,9 @@ if (farbe[0]) { const h = farbe[0]; document.documentElement.style.setProperty('
 if (farbe[1]) document.documentElement.style.setProperty('--bg', '#' + farbe[1]);
 
 /* ---------- Hausschnitt: Lage des Schornsteins im Bild (0..1) ---------- */
-const HOUSE = window.KW_HOUSE || { img: 'h-1', th: 'h-1t', w: 2560, h: 1440, x: 0.5, top: 0.06, bottom: 0.9,
-  floors: { DACH: 0.14, DACHBODEN: 0.32, WOHNEN: 0.55, TECHNIK: 0.7, KELLER: 0.84 } };
+/* Werte für Hausschnitt H-1A (frontal, Schornstein mittig) */
+const HOUSE = window.KW_HOUSE || { img: 'h-1', th: 'h-1t', w: 2560, h: 1440, x: 0.496, top: 0.02, bottom: 0.87,
+  floors: { DACH: 0.07, DACHBODEN: 0.31, WOHNEN: 0.53, TECHNIK: 0.72, KELLER: 0.84 } };
 const FLOORS = ['DACH', 'DACHBODEN', 'WOHNEN', 'TECHNIK', 'KELLER'];
 const LABEL = { DACH: 'Dach', DACHBODEN: 'Dachboden', WOHNEN: 'Wohnen', TECHNIK: 'Technik', KELLER: 'Keller' };
 const RING = { 'h-5': { x: 0.74, y: 0.3, w: 0.2 } };
