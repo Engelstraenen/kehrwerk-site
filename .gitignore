@@ -1,0 +1,8 @@
+.env*
+node_modules/
+frames/
+videos/
+vorschau/
+konzepte/*.png
+konzepte/*.jpg
+.DS_Store
