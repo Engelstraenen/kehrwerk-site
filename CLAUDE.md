@@ -39,7 +39,7 @@ gh (Engelstraenen), sjinn in Chrome eingeloggt (Unlimited).
 - Deploy: `zsh tools/deploy.sh "Text"` (gh-pages, legacy)
 
 ## 8. Offene Fragen
-- Wahl Hausschnitt H-1A/B/C; Firmenname ohne -WERK.
+- Firmenname ohne -WERK.
 
 ## 9. Entschieden
 - 23.11.2026: Name KEHRWERK (Annahme), 3 Storyboard-Varianten erzeugt (Prompts konzepte/prompts.md).
@@ -55,6 +55,7 @@ gh (Engelstraenen), sjinn in Chrome eingeloggt (Unlimited).
 - 24.11.2026: Eugen: erst „Haus im Schnitt“ bauen; sieht es nicht gut aus → zurück zur Schachtkamera-Fahrt. Diese liegt fertig als Ausweich in `site-schacht/` (Code-Stand Commit 3a5a839 + Fixes; Assets aus site/assets, Videos per tools/assets.sh).
 - 24.11.2026: Dreamina-Bildkarten aktualisieren den Status nicht immer live (KS-1B stand 20 min auf 99 %, nach Neuladen fertig) → bei Stillstand >5 min Seite neu laden, Skript neu einspielen (`KSQ.run(0)`, erkennt Fertiges selbst).
 - 24.11.2026 (Masterfile V2.65): Alle Seiten-Bilder/-Videos lokal nachschärfen: tools/webp.py UnsharpMask(1.6, 70, 2), Filme ffmpeg unsharp=5:5:0.7 (tools/assets.sh). Gemessen h-1 Laplace 369→860, Ofen-Film 42→208, keine Halos.
+- 24.11.2026 (23:10): Eugen wählt Hausschnitt 1B (3/4-Ansicht, frames/H-1B.png → H-1.png). Schornstein x 0,503; Ebenen Dach 0,10 · Dachboden 0,24 · Wohnen 0,62 · Technik 0,80 · Keller 0,88. Wärmebild H-1T = Edit von H-1B.
 - Offen: Firmenname ohne „-WERK“ (Masterfile V2.53), Vorschläge bei Lieferung.
 
 ## 10. Ablage

@@ -17,9 +17,9 @@ if (farbe[0]) { const h = farbe[0]; document.documentElement.style.setProperty('
 if (farbe[1]) document.documentElement.style.setProperty('--bg', '#' + farbe[1]);
 
 /* ---------- Hausschnitt: Lage des Schornsteins im Bild (0..1) ---------- */
-/* Werte für Hausschnitt H-1A (frontal, Schornstein mittig) */
-const HOUSE = window.KW_HOUSE || { img: 'h-1', th: 'h-1t', w: 2560, h: 1440, x: 0.496, top: 0.02, bottom: 0.87,
-  floors: { DACH: 0.07, DACHBODEN: 0.31, WOHNEN: 0.53, TECHNIK: 0.72, KELLER: 0.84 } };
+/* Werte für Hausschnitt H-1B (3/4-Ansicht, von Eugen gewählt) */
+const HOUSE = window.KW_HOUSE || { img: 'h-1', th: 'h-1t', w: 3584, h: 2016, x: 0.503, top: 0.045, bottom: 0.92,
+  floors: { DACH: 0.1, DACHBODEN: 0.24, WOHNEN: 0.62, TECHNIK: 0.8, KELLER: 0.88 } };
 const FLOORS = ['DACH', 'DACHBODEN', 'WOHNEN', 'TECHNIK', 'KELLER'];
 const LABEL = { DACH: 'Dach', DACHBODEN: 'Dachboden', WOHNEN: 'Wohnen', TECHNIK: 'Technik', KELLER: 'Keller' };
 const RING = { 'h-5': { x: 0.74, y: 0.3, w: 0.2 } };
@@ -28,7 +28,7 @@ const POS = { 'h-4': '24% 50%', 'h-5': '72% 50%', 'h-7': '30% 50%' };
 const cutImg = $('#cutImg'), cutTh = $('#cutTh'), cutZ = $('#cutZ');
 const houseOK = has('img', HOUSE.img);
 const SIZES = '(max-aspect-ratio: 16/9) 177.8vh, 100vw';
-const srcset = n => `assets/img/${n}-m.webp 1600w, assets/img/${n}.webp 2560w`;
+const srcset = n => `assets/img/${n}-m.webp 1600w, assets/img/${n}.webp 3584w`;
 if (houseOK) { cutImg.sizes = SIZES; cutImg.srcset = srcset(HOUSE.img); cutImg.src = `assets/img/${HOUSE.img}.webp`; }
 else { cutImg.setAttribute('src', ''); document.body.classList.add('nohouse'); $('#trace').style.display = 'none'; }
 if (has('img', HOUSE.th)) { cutTh.sizes = SIZES; cutTh.srcset = srcset(HOUSE.th); cutTh.src = `assets/img/${HOUSE.th}.webp`; } else cutTh.setAttribute('src', '');
