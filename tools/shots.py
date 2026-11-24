@@ -15,7 +15,7 @@ async def main():
             pg = await ctx.new_page(); errs=[]
             pg.on("console", lambda m: errs.append(m.text) if m.type=="error" else None)
             pg.on("pageerror", lambda e: errs.append(str(e)))
-            await pg.goto(URL, wait_until="networkidle"); await pg.wait_for_timeout(1800)
+            await pg.goto(URL, wait_until="domcontentloaded"); await pg.wait_for_timeout(1800)
             H = await pg.evaluate("document.documentElement.scrollHeight")
             ox = []
             for i,s in enumerate(STOPS if name in ("d1440","m390") else STOPS[::3]):
