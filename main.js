@@ -23,7 +23,7 @@ const HOUSE = window.KW_HOUSE || { img: 'h-1', th: 'h-1t', w: 3584, h: 2016, x: 
 const FLOORS = ['DACH', 'DACHBODEN', 'WOHNEN', 'TECHNIK', 'KELLER'];
 const LABEL = { DACH: 'Dach', DACHBODEN: 'Dachboden', WOHNEN: 'Wohnen', TECHNIK: 'Technik', KELLER: 'Keller' };
 const RING = { 'h-5': { x: 0.78, y: 0.28, w: 0.28 } };
-const POS = { 'h-2': '58% 50%', 'h-4': '55% 50%', 'h-5': '74% 50%', 'h-7': '30% 50%' };
+const POS = { 'h-2': '47% 50%', 'h-4': '55% 50%', 'h-5': '74% 50%', 'h-7': '30% 50%' };
 
 const cutImg = $('#cutImg'), cutTh = $('#cutTh'), cutZ = $('#cutZ');
 const houseOK = has('img', HOUSE.img);
