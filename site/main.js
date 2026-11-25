@@ -126,7 +126,7 @@ function frame() {
   const ph = secs.filter(s => s.kind === 'photo' && s.ly).reduce((a, s) => s.vis > (a ? a.vis : 0) ? s : a, null);
   const pv = ph ? ph.vis : 0;
   const [ax, ay] = toScreen(HOUSE.x, ph ? HOUSE.floors[ph.floor] : dotY);
-  const zt = reduce ? 1 : 1 + 2.6 * smooth(0, 1, pv);
+  const zt = reduce ? 1 : 1 + 1.5 * smooth(0, 1, pv);
   zoom += (zt - zoom) * 0.25; zx += (ax - zx) * 0.3; zy += (ay - zy) * 0.3;
   cutZ.style.transformOrigin = `${zx.toFixed(1)}px ${zy.toFixed(1)}px`;
   cutZ.style.transform = `scale(${zoom.toFixed(4)})`;
@@ -134,7 +134,7 @@ function frame() {
     if (!s.ly) return;
     const o = s === ph || s.el.classList.contains('last') ? clamp((s.vis - 0.25) / 0.6) : 0;
     s.ly.style.opacity = o.toFixed(3); s.ly.style.visibility = o > 0.002 ? 'visible' : 'hidden';
-    if (!reduce) s.ly.style.transform = `scale(${(1.14 - 0.1 * o + 0.04 * s.t).toFixed(4)})`;
+    if (!reduce) s.ly.style.transform = `scale(${(1.06 - 0.06 * o + 0.02 * s.t).toFixed(4)})`;
     if (s.vid) { if (o > 0.05 && s.vid.paused) s.vid.play().catch(() => {}); else if (o <= 0.05 && !s.vid.paused) s.vid.pause(); }
   });
 
@@ -145,6 +145,14 @@ function frame() {
   trLit.setAttribute('x1', top[0]); trLit.setAttribute('y1', top[1]); trLit.setAttribute('x2', dot[0]); trLit.setAttribute('y2', dot[1]);
   [trDot, trPing].forEach(c => { c.setAttribute('cx', dot[0]); c.setAttribute('cy', dot[1]); });
   $('#trace').style.opacity = (1 - smooth(0.05, 0.4, pv)).toFixed(3);
+  /* Ortsangaben: beim Eintauchen „Kamera fährt …“, im Foto „wo bin ich“ */
+  const zc = $('#zoomcap'), wh = $('#where');
+  if (ph && ph.el.dataset.goTxt) {
+    const zv = Math.sin(Math.PI * clamp(pv / 0.75)) * (pv < 0.75 ? 1 : 0);
+    zc.textContent = ph.el.dataset.goTxt; zc.style.opacity = zv.toFixed(3);
+    const zp = Z(toScreen(HOUSE.x, HOUSE.floors[ph.floor])); zc.style.left = Math.max(120, Math.min(W - 120, zp[0])) + 'px'; zc.style.top = zp[1] + 'px';
+    wh.querySelector('span').textContent = ph.el.dataset.where; wh.style.opacity = smooth(0.6, 0.9, pv).toFixed(3);
+  } else { zc.style.opacity = 0; wh.style.opacity = 0; }
 
   /* Ebene in der Navigation */
   const cur = FLOORS.reduce((a, f) => Math.abs(HOUSE.floors[f] - dotY) < Math.abs(HOUSE.floors[a] - dotY) ? f : a, FLOORS[0]);
@@ -171,7 +179,8 @@ function frame() {
   $$('#tags .tagc').forEach((c, k) => c.classList.toggle('on', mob() || s7.t > 0.3 + k * 0.1));
   const s6 = S('s6');
   $$('#kin span').forEach((sp, k) => { const a = mob() ? 0.12 + k * 0.08 : 0.08 + k * 0.2, i = smooth(a, a + 0.07, s6.t), o = mob() ? 0 : k === 2 ? smooth(0.78, 0.86, s6.t) : smooth(a + 0.15, a + 0.21, s6.t); sp.style.opacity = (i * (1 - o)).toFixed(3); sp.style.transform = `translateX(${((1 - i) * 8 - o * 8).toFixed(2)}vw)`; });
-  smoke(y, Z, cut);
+  smoke(y, Z, cut, pv);
+  $('.vig').style.opacity = (1 - pv * 0.9).toFixed(3);
 }
 
 /* ---------- Rauch-/Partikel-Brücke (Storyboard T3): eine Wolke formt sich von Kapitel zu Kapitel um ---------- */
@@ -179,8 +188,9 @@ const smoke = (() => {
   const cv = $('#smoke'), cx = cv.getContext('2d');
   let N = 0, P = [], dpr = 1;
   const hash = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
-  const sprite = (() => { const c = document.createElement('canvas'); c.width = c.height = 48; const g = c.getContext('2d'); const gr = g.createRadialGradient(24, 24, 0, 24, 24, 24); gr.addColorStop(0, 'rgba(245,255,170,.9)'); gr.addColorStop(.35, 'rgba(230,255,58,.35)'); gr.addColorStop(1, 'rgba(230,255,58,0)'); g.fillStyle = gr; g.fillRect(0, 0, 48, 48); return c; })();
-  const size = () => { dpr = Math.min(devicePixelRatio, 1.5); cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; N = reduce ? 0 : (innerWidth < 820 ? 300 : 560); P = Array.from({ length: N }, (_, i) => ({ x: innerWidth / 2, y: innerHeight / 2, h: hash(i), h2: hash(i + 999), s: 0.5 + hash(i + 77) * 1.3 })); };
+  const sprite = (() => { const c = document.createElement('canvas'); c.width = c.height = 48; const g = c.getContext('2d'); const gr = g.createRadialGradient(24, 24, 0, 24, 24, 24); gr.addColorStop(0, 'rgba(205,198,190,.55)'); gr.addColorStop(.5, 'rgba(160,152,145,.22)'); gr.addColorStop(1, 'rgba(120,112,105,0)'); g.fillStyle = gr; g.fillRect(0, 0, 48, 48); return c; })();
+  const ember = (() => { const c = document.createElement('canvas'); c.width = c.height = 24; const g = c.getContext('2d'); const gr = g.createRadialGradient(12, 12, 0, 12, 12, 12); gr.addColorStop(0, 'rgba(255,220,180,1)'); gr.addColorStop(.3, 'rgba(255,90,40,.8)'); gr.addColorStop(1, 'rgba(255,59,48,0)'); g.fillStyle = gr; g.fillRect(0, 0, 24, 24); return c; })();
+  const size = () => { dpr = Math.min(devicePixelRatio, 1.5); cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; N = reduce ? 0 : (innerWidth < 820 ? 300 : 560); P = Array.from({ length: N }, (_, i) => ({ x: innerWidth / 2, y: innerHeight / 2, h: hash(i), h2: hash(i + 999), s: 0.5 + hash(i + 77) * 1.3, e: hash(i + 31) < 0.1 })); };
   size(); addEventListener('resize', size);
   const rect = el => el && el.getBoundingClientRect();
   /* Formationen: Zielpunkt je Teilchen (i, v=i/N, t=Zeit) */
@@ -196,7 +206,7 @@ const smoke = (() => {
     fall: (p, v, t) => { const u = (p.h2 + t * 0.05) % 1; return [W * (0.5 + (p.h - 0.5) * 0.22) + Math.sin(u * 8 + p.h * 9) * 14, H * 0.3 + u * H * 0.45]; }
   };
   const SHAPE = { s0: 'plume', s1: 'swirl', s2: 'stream', s3: 'graph', s4: 'ring', s5: 'front', s6: 'rise', s7: 'checks', s8: 'fall' };
-  return (y, Z, cutPct) => {
+  return (y, Z, cutPct, photo = 0) => {
     if (!N) return;
     const t = performance.now() / 1000, vh = H;
     const call = rect($('#callout')), mt = rect($('#meter')), rg = S('s4').ring ? rect(S('s4').ring) : null;
@@ -215,8 +225,7 @@ const smoke = (() => {
     else for (let i = 0; i < anc.length - 1; i++) if (y >= anc[i][0] && y < anc[i + 1][0]) { a = anc[i]; b = anc[i + 1]; k = smooth(0.22, 0.78, (y - anc[i][0]) / (anc[i + 1][0] - anc[i][0])); break; }
     const turb = Math.sin(Math.PI * k) * Math.min(W, H) * 0.12;
     cx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    cx.globalCompositeOperation = 'destination-out'; cx.fillStyle = 'rgba(0,0,0,.32)'; cx.fillRect(0, 0, W, H);
-    cx.globalCompositeOperation = 'lighter';
+    cx.clearRect(0, 0, W, H);
     const fa = F[a[1]], fb = F[b[1]], small = (W < 820 || H < 520) ? 0.6 : 1;
     const quiet = { rise: 0.55, fall: 0.5, plume: 1, swirl: 0.9 }, fadeA = (quiet[a[1]] ?? 1) * (1 - k) + (quiet[b[1]] ?? 1) * k;
     for (let i = 0; i < N; i++) {
@@ -225,9 +234,9 @@ const smoke = (() => {
       const nx = Math.sin(t * 0.7 + p.h * 40) * turb + Math.sin(p.y * 0.01 + t) * turb * 0.4, ny = Math.cos(t * 0.6 + p.h2 * 40) * turb;
       const tx = pa[0] + (pb[0] - pa[0]) * k + nx, ty = pa[1] + (pb[1] - pa[1]) * k + ny;
       p.x += (tx - p.x) * 0.09; p.y += (ty - p.y) * 0.09;
-      const sz = (5 + p.s * 9) * (1 + Math.sin(Math.PI * k) * 0.9);
-      cx.globalAlpha = (0.05 + p.s * 0.06) * fadeA * small;
-      cx.drawImage(sprite, p.x - sz, p.y - sz, sz * 2, sz * 2);
+      const vis = (0.12 + 0.88 * Math.sin(Math.PI * k)) * fadeA * small * (1 - photo * 0.85);
+      if (p.e) { const sz = 2 + p.s * 2.5; cx.globalCompositeOperation = 'lighter'; cx.globalAlpha = 0.85 * vis; cx.drawImage(ember, p.x - sz, p.y - sz, sz * 2, sz * 2); cx.globalCompositeOperation = 'source-over'; }
+      else { const sz = (16 + p.s * 30) * (1 + Math.sin(Math.PI * k) * 0.6); cx.globalAlpha = 0.07 * vis; cx.drawImage(sprite, p.x - sz, p.y - sz, sz * 2, sz * 2); }
     }
     cx.globalAlpha = 1;
   };

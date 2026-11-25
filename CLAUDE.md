@@ -57,6 +57,7 @@ gh (Engelstraenen), sjinn in Chrome eingeloggt (Unlimited).
 - 24.11.2026 (Masterfile V2.65): Alle Seiten-Bilder/-Videos lokal nachschärfen: tools/webp.py UnsharpMask(1.6, 70, 2), Filme ffmpeg unsharp=5:5:0.7 (tools/assets.sh). Gemessen h-1 Laplace 369→860, Ofen-Film 42→208, keine Halos.
 - 24.11.2026 (23:10): Eugen wählt Hausschnitt 1B (3/4-Ansicht, frames/H-1B.png → H-1.png). Schornstein x 0,503; Ebenen Dach 0,10 · Dachboden 0,24 · Wohnen 0,62 · Technik 0,80 · Keller 0,88. Wärmebild H-1T = Edit von H-1B.
 - 25.11.2026 (01:05): Eugen wählt Übergänge T3 „Rauch-/Partikel-Brücke“ (konzepte/SB-T3.png): Rauch/Ruß/Abgas/Wärme-Partikel (neongelb beleuchtet) tragen von Kapitel zu Kapitel, ohne harten Schnitt (Drehbuch konzepte/uebergaenge.md, Spalte T3).
+- 25.11.2026 (02:10): Eugen: Neongelb wirkt grün und billig → Farbwelt zurück auf Ruß #0f0e0d + Signalrot #ff3b30; Rauch realistisch grau mit roter Glut, nur im Übergang; Fotos ohne Abdunkeln/Zoom/Rauch darüber (sauber zeigen); Ortsangaben beim Eintauchen („Kamera fährt in den Schornstein“, „Blick in den Schornstein“). Kehren-Foto = saubere Kopie des Storyboard-Panels 2 (H-2B, sjinn mit Panel als Referenz). Rest der Seite von Eugen gelobt („Rest war super“).
 - 25.11.2026: Firmenname RUSSFREI (Eugens Wahl). Projektordner/Repo bleiben KEHRWERK/kehrwerk-site (Link bleibt gleich).
 - 25.11.2026 (Eugen, wütend): Auswahl und Abnahme nie als Mini-Kontaktbogen/Rasterbild, sondern jede Option einzeln groß bzw. als Abnahme-Seite (Storyboard-Frame und Seite groß nebeneinander).
 
