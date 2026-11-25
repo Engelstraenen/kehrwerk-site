@@ -170,8 +170,69 @@ function frame() {
   if (!mob()) { const tg = $('#tags'), tv = smooth(0.2, 0.3, s7.t) * (1 - smooth(0.76, 0.86, s7.t)); tg.style.opacity = tv.toFixed(3); tg.style.visibility = tv > 0.01 ? 'visible' : 'hidden'; }
   $$('#tags .tagc').forEach((c, k) => c.classList.toggle('on', mob() || s7.t > 0.3 + k * 0.1));
   const s6 = S('s6');
-  $$('#kin span').forEach((sp, k) => { const a = mob() ? 0.12 + k * 0.08 : 0.08 + k * 0.2, i = smooth(a, a + 0.07, s6.t), o = mob() ? 0 : k === 2 ? smooth(0.78, 0.86, s6.t) : smooth(a + 0.15, a + 0.21, s6.t); sp.style.opacity = (i * (1 - o)).toFixed(3); sp.style.transform = `translateX(${((1 - i) * -12 + o * 8).toFixed(2)}vw)`; });
+  $$('#kin span').forEach((sp, k) => { const a = mob() ? 0.12 + k * 0.08 : 0.08 + k * 0.2, i = smooth(a, a + 0.07, s6.t), o = mob() ? 0 : k === 2 ? smooth(0.78, 0.86, s6.t) : smooth(a + 0.15, a + 0.21, s6.t); sp.style.opacity = (i * (1 - o)).toFixed(3); sp.style.transform = `translateX(${((1 - i) * 8 - o * 8).toFixed(2)}vw)`; });
+  smoke(y, Z, cut);
 }
+
+/* ---------- Rauch-/Partikel-Brücke (Storyboard T3): eine Wolke formt sich von Kapitel zu Kapitel um ---------- */
+const smoke = (() => {
+  const cv = $('#smoke'), cx = cv.getContext('2d');
+  let N = 0, P = [], dpr = 1;
+  const hash = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+  const sprite = (() => { const c = document.createElement('canvas'); c.width = c.height = 48; const g = c.getContext('2d'); const gr = g.createRadialGradient(24, 24, 0, 24, 24, 24); gr.addColorStop(0, 'rgba(245,255,170,.9)'); gr.addColorStop(.35, 'rgba(230,255,58,.35)'); gr.addColorStop(1, 'rgba(230,255,58,0)'); g.fillStyle = gr; g.fillRect(0, 0, 48, 48); return c; })();
+  const size = () => { dpr = Math.min(devicePixelRatio, 1.5); cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; N = reduce ? 0 : (innerWidth < 820 ? 300 : 560); P = Array.from({ length: N }, (_, i) => ({ x: innerWidth / 2, y: innerHeight / 2, h: hash(i), h2: hash(i + 999), s: 0.5 + hash(i + 77) * 1.3 })); };
+  size(); addEventListener('resize', size);
+  const rect = el => el && el.getBoundingClientRect();
+  /* Formationen: Zielpunkt je Teilchen (i, v=i/N, t=Zeit) */
+  const F = {
+    plume: (p, v, t, g) => { const u = (p.h2 + t * 0.06) % 1; return [g.top[0] + u * W * 0.16 + Math.sin(u * 6 + t + p.h * 6) * (8 + u * 90), g.top[1] + 10 - u * H * 0.16 + (p.h - 0.5) * u * 120]; },
+    swirl: (p, v, t) => { const r = (0.06 + 0.5 * Math.sqrt(p.h)) * Math.min(W, H), a = p.h2 * 6.283 + t * (1.2 - p.h * 0.8); return [W * 0.5 + Math.cos(a) * r * 1.3 + Math.sin(t + p.h * 20) * 20, H * 0.44 + Math.sin(a) * r * 0.9]; },
+    stream: (p, v, t, g) => { const u = (v + t * 0.12) % 1, A = g.top, B = g.attic, C = g.call; const q = u < 0.6 ? u / 0.6 : (u - 0.6) / 0.4; const a = u < 0.6 ? A : B, b = u < 0.6 ? B : C; return [a[0] + (b[0] - a[0]) * q + (p.h - 0.5) * 10, a[1] + (b[1] - a[1]) * q + (p.h2 - 0.5) * 10]; },
+    graph: (p, v, t, g) => { const r = g.meter; const x = r.left + 14 + v * (r.width - 28); const y = r.bottom - 34 - (Math.sin(v * 21 + 1) * 0.35 + Math.sin(v * 47) * 0.2 + 0.5) * 22; return [x + (p.h - 0.5) * 3, y + (p.h2 - 0.5) * 3]; },
+    ring: (p, v, t, g) => { const r = g.ring, a = v * Math.PI * 2 + t * 0.5; return [r.left + r.width / 2 + Math.cos(a) * r.width * (0.5 + (p.h - 0.5) * 0.12), r.top + r.height / 2 + Math.sin(a) * r.height * (0.5 + (p.h2 - 0.5) * 0.3)]; },
+    front: (p, v, t, g) => [g.wipe + (p.h - 0.5) * 26 + Math.sin(v * 30 + t * 2) * 8, v * H],
+    rise: (p, v, t) => { const u = (p.h2 + t * 0.03) % 1; return [W * (0.42 + p.h * 0.56) + Math.sin(u * 6 + p.h * 9) * 40, H * 0.95 - u * H * 0.9]; },
+    checks: (p, v, t, g) => { const k = Math.floor(p.h * g.checks.length), c = g.checks[k] || [W / 2, H / 2], q = (p.h2 * 3) % 3, s = 1.4; const pts = [[-9, 0], [-3, 7], [11, -9]]; const a = pts[Math.floor(q)], b = pts[Math.min(2, Math.floor(q) + 1)], f = q % 1; return [c[0] + (a[0] + (b[0] - a[0]) * f) * s, c[1] + (a[1] + (b[1] - a[1]) * f) * s]; },
+    fall: (p, v, t) => { const u = (p.h2 + t * 0.05) % 1; return [W * (0.5 + (p.h - 0.5) * 0.22) + Math.sin(u * 8 + p.h * 9) * 14, H * 0.3 + u * H * 0.45]; }
+  };
+  const SHAPE = { s0: 'plume', s1: 'swirl', s2: 'stream', s3: 'graph', s4: 'ring', s5: 'front', s6: 'rise', s7: 'checks', s8: 'fall' };
+  return (y, Z, cutPct) => {
+    if (!N) return;
+    const t = performance.now() / 1000, vh = H;
+    const call = rect($('#callout')), mt = rect($('#meter')), rg = S('s4').ring ? rect(S('s4').ring) : null;
+    const g = {
+      top: Z(toScreen(HOUSE.x, HOUSE.top)), attic: Z(toScreen(HOUSE.x, HOUSE.floors.DACHBODEN)),
+      call: call && call.width ? [call.left, call.top + 20] : Z(toScreen(HOUSE.x + 0.08, HOUSE.floors.DACHBODEN)),
+      meter: mt && mt.width && mt.top < H && mt.bottom > 0 ? mt : { left: W * 0.55, width: W * 0.35, bottom: H * 0.6 },
+      ring: rg && rg.width ? rg : { left: W * 0.6, top: H * 0.2, width: W * 0.28, height: W * 0.09 },
+      wipe: W * cutPct / 100,
+      checks: $$('#checks i').map(c => { const r = c.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; })
+    };
+    /* Kapitelanker -> Formation A/B + Übergang k */
+    const anc = secs.map(s => [s.top + s.h * 0.4 - vh * 0.35, SHAPE[s.id]]);
+    let a = anc[0], b = anc[0], k = 0;
+    if (y >= anc[anc.length - 1][0]) { a = b = anc[anc.length - 1]; }
+    else for (let i = 0; i < anc.length - 1; i++) if (y >= anc[i][0] && y < anc[i + 1][0]) { a = anc[i]; b = anc[i + 1]; k = smooth(0.22, 0.78, (y - anc[i][0]) / (anc[i + 1][0] - anc[i][0])); break; }
+    const turb = Math.sin(Math.PI * k) * Math.min(W, H) * 0.12;
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx.globalCompositeOperation = 'destination-out'; cx.fillStyle = 'rgba(0,0,0,.32)'; cx.fillRect(0, 0, W, H);
+    cx.globalCompositeOperation = 'lighter';
+    const fa = F[a[1]], fb = F[b[1]], small = (W < 820 || H < 520) ? 0.6 : 1;
+    const quiet = { rise: 0.55, fall: 0.5, plume: 1, swirl: 0.9 }, fadeA = (quiet[a[1]] ?? 1) * (1 - k) + (quiet[b[1]] ?? 1) * k;
+    for (let i = 0; i < N; i++) {
+      const p = P[i], v = i / N;
+      const pa = fa(p, v, t, g), pb = fb(p, v, t, g);
+      const nx = Math.sin(t * 0.7 + p.h * 40) * turb + Math.sin(p.y * 0.01 + t) * turb * 0.4, ny = Math.cos(t * 0.6 + p.h2 * 40) * turb;
+      const tx = pa[0] + (pb[0] - pa[0]) * k + nx, ty = pa[1] + (pb[1] - pa[1]) * k + ny;
+      p.x += (tx - p.x) * 0.09; p.y += (ty - p.y) * 0.09;
+      const sz = (5 + p.s * 9) * (1 + Math.sin(Math.PI * k) * 0.9);
+      cx.globalAlpha = (0.05 + p.s * 0.06) * fadeA * small;
+      cx.drawImage(sprite, p.x - sz, p.y - sz, sz * 2, sz * 2);
+    }
+    cx.globalAlpha = 1;
+  };
+})();
+
 function loop(ts) { if (lenis) lenis.raf(ts); frame(); requestAnimationFrame(loop); }
 requestAnimationFrame(loop);
 
