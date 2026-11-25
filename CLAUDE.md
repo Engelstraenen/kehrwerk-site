@@ -2,7 +2,7 @@
 Gilt zusätzlich zur globalen Masterfile (~/.claude/CLAUDE.md).
 
 ## 1. Ziel und Endprodukt
-Interaktive Demo-Website für einen erfundenen Schornsteinfeger-Meisterbetrieb (KEHRWERK Schornsteinfegerei). Musterbeispiel für Akquise (PROJEKT EX), nächste Branche nach Elektro (LICHTBOGEN), Maler (FARBKANTE), Heizung (WARMHERZ).
+Interaktive Demo-Website für einen erfundenen Schornsteinfeger-Meisterbetrieb (Name seit 25.11.2026: RUSSFREI; Projektname KEHRWERK). Musterbeispiel für Akquise (PROJEKT EX), nächste Branche nach Elektro (LICHTBOGEN), Maler (FARBKANTE), Heizung (WARMHERZ).
 Probleme, die die Seite löst:
 - Nachwuchs/Fachkräfte → eigenes Recruiting-Kapitel (Film + Bewerbung in 60 Sekunden)
 - Termin-Chaos (Kunde nicht da, Telefon, Terminzettel) → Wunsch-Zeitfenster online, „Wir klingeln nur, wenn Sie da sind“
@@ -39,7 +39,7 @@ gh (Engelstraenen), sjinn in Chrome eingeloggt (Unlimited).
 - Deploy: `zsh tools/deploy.sh "Text"` (gh-pages, legacy)
 
 ## 8. Offene Fragen
-- Firmenname ohne -WERK.
+- keine
 
 ## 9. Entschieden
 - 23.11.2026: Name KEHRWERK (Annahme), 3 Storyboard-Varianten erzeugt (Prompts konzepte/prompts.md).
@@ -57,7 +57,8 @@ gh (Engelstraenen), sjinn in Chrome eingeloggt (Unlimited).
 - 24.11.2026 (Masterfile V2.65): Alle Seiten-Bilder/-Videos lokal nachschärfen: tools/webp.py UnsharpMask(1.6, 70, 2), Filme ffmpeg unsharp=5:5:0.7 (tools/assets.sh). Gemessen h-1 Laplace 369→860, Ofen-Film 42→208, keine Halos.
 - 24.11.2026 (23:10): Eugen wählt Hausschnitt 1B (3/4-Ansicht, frames/H-1B.png → H-1.png). Schornstein x 0,503; Ebenen Dach 0,10 · Dachboden 0,24 · Wohnen 0,62 · Technik 0,80 · Keller 0,88. Wärmebild H-1T = Edit von H-1B.
 - 25.11.2026 (01:05): Eugen wählt Übergänge T3 „Rauch-/Partikel-Brücke“ (konzepte/SB-T3.png): Rauch/Ruß/Abgas/Wärme-Partikel (neongelb beleuchtet) tragen von Kapitel zu Kapitel, ohne harten Schnitt (Drehbuch konzepte/uebergaenge.md, Spalte T3).
-- Offen: Firmenname ohne „-WERK“ (Masterfile V2.53), Vorschläge bei Lieferung.
+- 25.11.2026: Firmenname RUSSFREI (Eugens Wahl). Projektordner/Repo bleiben KEHRWERK/kehrwerk-site (Link bleibt gleich).
+- 25.11.2026 (Eugen, wütend): Auswahl und Abnahme nie als Mini-Kontaktbogen/Rasterbild, sondern jede Option einzeln groß bzw. als Abnahme-Seite (Storyboard-Frame und Seite groß nebeneinander).
 
 ## 10. Ablage
 frames/ (Startbilder 2560×1440, KS-* = Schachtkamera-Motive), videos/ (Drafts), vorschau/ (für den Chat)
