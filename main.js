@@ -1,4 +1,4 @@
-/* KEHRWERK · Haus im Schnitt: Leuchtpunkt (Schachtkamera) fährt den Schornstein hinab, an jeder Station Eintauchen ins Foto */
+/* RUSSFREI · Haus im Schnitt: Leuchtpunkt (Schachtkamera) fährt den Schornstein hinab, an jeder Station Eintauchen ins Foto */
 (() => {
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -250,7 +250,7 @@ $('#coTest').addEventListener('click', () => { document.body.classList.remove('f
 
 /* ---------- Impressum / Datenschutz ---------- */
 const TXT = {
-  imp: '<h3>Impressum</h3><p>Demo-Website. KEHRWERK ist ein erfundener Schornsteinfeger-Meisterbetrieb.</p><p>Bei einer echten Seite stehen hier Name, Anschrift, Kontakt, Handwerkskammer und Registereintrag des Betriebs.</p>',
+  imp: '<h3>Impressum</h3><p>Demo-Website. RUSSFREI ist ein erfundener Schornsteinfeger-Meisterbetrieb.</p><p>Bei einer echten Seite stehen hier Name, Anschrift, Kontakt, Handwerkskammer und Registereintrag des Betriebs.</p>',
   ds: '<h3>Datenschutz</h3><p>Diese Demo speichert und sendet keine Eingaben. Schriften werden von Google Fonts geladen, die Scroll-Bibliothek von unpkg.</p><p>Bei einer echten Seite steht hier die vollständige Datenschutzerklärung.</p>'
 };
 const modal = $('#modal');
