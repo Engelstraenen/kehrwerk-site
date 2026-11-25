@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>RUSSFREI – Schornsteinfeger-Meisterbetrieb</title>
 <meta name="description" content="Demo-Website: Ein Haus im Schnitt – die Schachtkamera fährt den Schornstein hinab. Kehren, Inspektion, Messung, CO-Schutz, Wärmebild, Ausbildung und Termin im Wunsch-Zeitfenster.">
-<meta name="theme-color" content="#141516">
+<meta name="theme-color" content="#0f0e0d">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700;800;900&family=Inter:wght@400;500;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23141516'/%3E%3Cpath d='M7 15 16 7l9 8v10H7z' fill='none' stroke='%23e6ff3a' stroke-width='2'/%3E%3Cpath d='M16 7v18' stroke='%23e6ff3a' stroke-width='2'/%3E%3Ccircle cx='16' cy='12' r='2.6' fill='%23e6ff3a'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f0e0d'/%3E%3Cpath d='M7 15 16 7l9 8v10H7z' fill='none' stroke='%23ff3b30' stroke-width='2'/%3E%3Cpath d='M16 7v18' stroke='%23ff3b30' stroke-width='2'/%3E%3Ccircle cx='16' cy='12' r='2.6' fill='%23ff3b30'/%3E%3C/svg%3E">
 <script src="assets/manifest.js"></script>
 </head>
 <body>
@@ -44,6 +44,8 @@
   <canvas class="smoke" id="smoke"></canvas>
   <div class="th-scale" id="thScale"><b>°C</b><i></i><span>warm</span><span>kalt</span></div>
   <div class="vig"></div>
+  <p class="zoomcap" id="zoomcap"></p>
+  <p class="where" id="where"><i></i><span></span></p>
 </div>
 
 <!-- Mini-Schnitt = Navigation -->
@@ -62,7 +64,7 @@
     </div>
   </section>
 
-  <section class="sc" id="s1" data-kind="photo" data-img="h-2" data-floor="DACH" aria-label="Kehren">
+  <section class="sc" id="s1" data-go-txt="Kamera fährt in den Schornstein" data-where="Blick in den Schornstein · vom Dach nach unten" data-kind="photo" data-img="h-2" data-floor="DACH" aria-label="Kehren">
     <div class="panel right">
       <p class="kick"><b>Dach</b> · Kehren</p>
       <h2 class="h-l">Saubere Wege. Sichere Luft.</h2>
@@ -78,7 +80,7 @@
     </div>
   </section>
 
-  <section class="sc" id="s3" data-kind="photo" data-img="h-4" data-floor="KELLER" aria-label="Messung">
+  <section class="sc" id="s3" data-go-txt="Kamera fährt in den Heizungskeller" data-where="Im Heizungskeller · Abgasmessung am Kessel" data-kind="photo" data-img="h-4" data-floor="KELLER" aria-label="Messung">
     <div class="panel">
       <p class="kick"><b>Keller</b> · Messung</p>
       <h2 class="h-l">Messen. Prüfen. Schützen.</h2>
@@ -96,7 +98,7 @@
     </div>
   </section>
 
-  <section class="sc" id="s4" data-kind="photo" data-img="h-5" data-floor="WOHNEN" data-fx="ring" aria-label="CO-Schutz">
+  <section class="sc" id="s4" data-go-txt="Kamera fährt ins Wohnzimmer" data-where="Im Wohnzimmer · CO-Melder an der Decke" data-kind="photo" data-img="h-5" data-floor="WOHNEN" data-fx="ring" aria-label="CO-Schutz">
     <div class="panel">
       <p class="kick"><b>Wohnen</b> · CO-Schutz</p>
       <h2 class="h-l">Kleine Technik. Große Sicherheit.</h2>
@@ -114,13 +116,12 @@
     </div>
   </section>
 
-  <section class="sc" id="s6" data-kind="photo" data-img="h-7" data-floor="DACH" aria-label="Ausbildung und Karriere">
+  <section class="sc" id="s6" data-go-txt="Kamera fährt aufs Dach" data-where="Auf dem Dach · Ausbildung" data-kind="photo" data-img="h-7" data-floor="DACH" aria-label="Ausbildung und Karriere">
     <div class="kin" id="kin" aria-hidden="true"><span>Feste<br>Crew.</span><span>Eigener<br>Dienstwagen.</span><span>Meisterkurs<br>bezahlt.</span></div>
     <div class="panel right job">
       <p class="kick"><b>Dach</b> · Ausbildung</p>
       <h2 class="h-l">Starte hoch hinaus.</h2>
-      <p class="script">Saubere Zukunft</p>
-      <p>Deine Ausbildung. Echte Perspektiven. Azubi, Geselle oder Quereinstieg – ein Funkspruch reicht.</p>
+            <p>Deine Ausbildung. Echte Perspektiven. Azubi, Geselle oder Quereinstieg – ein Funkspruch reicht.</p>
       <form class="tx" id="jobForm" novalidate>
         <p class="tx-h"><span class="rec"></span>Funkspruch an den Meister <em id="txTime">≈ 45 s</em></p>
         <div class="chips" role="radiogroup" aria-label="Ich bin">
@@ -149,7 +150,7 @@
     </div>
   </section>
 
-  <section class="sc last" id="s8" data-kind="photo" data-vid="ks-ofen" data-floor="WOHNEN" aria-label="Termin und Kontakt">
+  <section class="sc last" id="s8" data-go-txt="Kamera fährt zum Kaminofen" data-where="Am Kaminofen im Wohnzimmer" data-kind="photo" data-vid="ks-ofen" data-floor="WOHNEN" aria-label="Termin und Kontakt">
     <div class="panel book">
       <p class="kick"><b>Wohnen</b> · Ihr Termin</p>
       <h2 class="h-l">Sicherheit beginnt zuhause.</h2>
